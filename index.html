@@ -9,6 +9,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>BRIEFING INICIAL - Cleisson Viagem</title>
     <link rel="stylesheet" href="estilo.css?v=3.0">
+    
+    <!-- MERCADO PAGO SDK -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="mercadopago-config.js?v=1.0"></script>
 </head>
 <body>
     <div class="container">
@@ -887,10 +891,81 @@
                 </div>
             </section>
 
-            <!-- BOTÃO DE ENVIO -->
+            <!-- SEÇÃO DE PAGAMENTO -->
+            <section class="form-section payment-section">
+                <h2>💳 PAGAMENTO E FINALIZAÇÃO</h2>
+                
+                <div class="subsection">
+                    <h3>💰 VALOR DO SERVIÇO</h3>
+                    <p>O briefing completo e criação da identidade visual tem o valor de:</p>
+                    
+                    <div class="price-display">
+                        <div class="price-amount">R$ 297,00</div>
+                        <div class="price-description">Briefing + Identidade Visual + Estratégia</div>
+                        <div class="price-benefits">
+                            ✅ Formulário completo de briefing<br>
+                            ✅ Análise estratégica detalhada<br>
+                            ✅ Criação de identidade visual<br>
+                            ✅ Logo profissional<br>
+                            ✅ Paleta de cores<br>
+                            ✅ Manual de marca<br>
+                            ✅ Estratégia de conteúdo<br>
+                            ✅ Suporte por 30 dias
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>🔒 PAGAMENTO SEGURO</h3>
+                    <p>Pagamento 100% seguro via Mercado Pago. Aceitamos:</p>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method">💳 Cartão de Crédito</div>
+                        <div class="payment-method">🏦 PIX</div>
+                        <div class="payment-method">💰 Boleto Bancário</div>
+                        <div class="payment-method">💳 Débito Online</div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>📋 PROCESSO</h3>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Preencha o briefing completo</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Efetue o pagamento seguro</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Receba sua identidade visual</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BOTÕES DE AÇÃO -->
             <div class="submit-section">
-                <button type="submit" class="submit-button">📤 ENVIAR BRIEFING COMPLETO</button>
-                <p class="submit-note">Após enviar, você receberá uma confirmação por e-mail</p>
+                <div class="action-buttons">
+                    <button type="button" class="payment-button" onclick="startPayment(297)">
+                        💳 PAGAR COM MERCADO PAGO - R$ 297,00
+                    </button>
+                    
+                    <div class="or-divider">
+                        <span>OU</span>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        📤 ENVIAR BRIEFING GRATUITO (SEM PAGAMENTO)
+                    </button>
+                </div>
+                
+                <p class="submit-note">
+                    <strong>Opção 1:</strong> Pague R$ 297 e receba briefing + identidade visual completa<br>
+                    <strong>Opção 2:</strong> Envie apenas o briefing (sem criação de identidade)
+                </p>
             </div>
         </form>
 
