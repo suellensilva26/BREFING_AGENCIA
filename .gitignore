@@ -1,0 +1,20 @@
+# Arquivos de documentação (não são necessários no deploy)
+README.md
+GUIA-RAPIDO.md
+CHECKLIST-IMPLANTACAO.md
+CONFIGURACAO-AVANCADA.md
+COMO-RECEBER-EMAILS.md
+OTIMIZACOES-MOBILE-DESKTOP.md
+DEPLOY-VERCEL.md
+INDICE-ARQUIVOS.txt
+exemplo-resposta-email.html
+briefing-captacao-conteudo-cleisson.md
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+.env
+.env.local
+.env.production

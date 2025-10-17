@@ -1,0 +1,13 @@
+{
+  "name": "briefing-cleisson-viagem",
+  "version": "1.0.0",
+  "description": "Site de briefing profissional para Cleisson Viagem",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Build completed'",
+    "start": "echo 'Site ready'"
+  },
+  "keywords": ["briefing", "formulario", "cleisson", "viagem"],
+  "author": "Cleisson Viagem",
+  "license": "MIT"
+}
