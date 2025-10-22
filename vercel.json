@@ -4,9 +4,25 @@
     {
       "src": "index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "estilo.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "script.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "mercadopago-config.js",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg))",
+      "dest": "/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.html"
