@@ -3,10 +3,10 @@
 
 // CONFIGURAÇÕES DO EMAILJS
 const EMAILJS_CONFIG = {
-    // SUBSTITUA PELOS SEUS DADOS DO EMAILJS
-    publicKey: 'YOUR_PUBLIC_KEY',        // Chave pública do EmailJS
-    serviceId: 'YOUR_SERVICE_ID',        // ID do serviço de e-mail
-    templateId: 'YOUR_TEMPLATE_ID',      // ID do template de e-mail
+    // DADOS CONFIGURADOS DO EMAILJS
+    publicKey: 's4sU_9n94n1m2coPH',      // Chave pública do EmailJS
+    serviceId: 'service_f8qh341',        // ID do serviço de e-mail
+    templateId: 'lo75si4',               // ID do template de e-mail
     
     // E-MAIL DESTINATÁRIO
     toEmail: 'suellensilva.empresa@gmail.com',
