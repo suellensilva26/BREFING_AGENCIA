@@ -26,23 +26,33 @@ async function sendEmailViaEmailJS(formData) {
             throw new Error('EmailJS não foi inicializado');
         }
         
-        // Preparar dados para o template
+        // Preparar dados básicos para o template (usando campos padrão do template "Contact Us")
         const templateParams = {
-            to_email: EMAILJS_CONFIG.toEmail,
-            from_name: formData.seu_nome || 'Cliente',
-            from_email: formData.seu_email || 'não informado',
-            telefone: formData.seu_telefone || 'não informado',
-            nome_empresa: formData.nome_completo || 'não informado',
-            historia: formData.historia || 'não informado',
-            tres_palavras: formData.tres_palavras || 'não informado',
-            observacoes: formData.observacoes_finais || 'não informado',
-            // Adicionar todos os dados do formulário
-            ...formData,
-            // Timestamp
-            data_envio: new Date().toLocaleString('pt-BR'),
-            // URL do site
-            site_url: window.location.href
+            name: formData.seu_nome || 'Cliente',
+            email: formData.seu_email || 'não informado',
+            message: `NOVO BRIEFING - CLEISSON VIAGEM
+            
+DADOS DO CLIENTE:
+Nome: ${formData.seu_nome || 'não informado'}
+E-mail: ${formData.seu_email || 'não informado'}
+Telefone: ${formData.seu_telefone || 'não informado'}
+
+DADOS DA EMPRESA:
+Nome da empresa: ${formData.nome_completo || 'não informado'}
+História: ${formData.historia || 'não informado'}
+3 palavras: ${formData.tres_palavras || 'não informado'}
+
+OBSERVAÇÕES:
+${formData.observacoes_finais || 'não informado'}
+
+Data do envio: ${new Date().toLocaleString('pt-BR')}
+Site: ${window.location.href}
+
+---
+Enviado automaticamente pelo site de briefing.`
         };
+        
+        console.log('Enviando e-mail com parâmetros:', templateParams);
         
         // Enviar e-mail
         const response = await emailjs.send(
@@ -51,11 +61,12 @@ async function sendEmailViaEmailJS(formData) {
             templateParams
         );
         
+        console.log('E-mail enviado com sucesso:', response);
         return response;
         
     } catch (error) {
-        console.error('Erro ao enviar e-mail:', error);
-        throw error;
+        console.error('Erro detalhado ao enviar e-mail:', error);
+        throw new Error(`Erro no EmailJS: ${error.message || error}`);
     }
 }
 
