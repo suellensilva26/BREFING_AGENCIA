@@ -457,36 +457,59 @@ function scrollToFirstEmptyField(emptyField) {
     }
 }
 
-// Enviar formulário
+// Enviar formulário via EmailJS
 async function submitForm(form) {
     // Mostrar loading
     showLoading();
     
     try {
-        // Enviar formulário
+        // Coletar dados do formulário
         const formData = new FormData(form);
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
+        const data = {};
+        
+        for (let [key, value] of formData.entries()) {
+            if (data[key]) {
+                if (Array.isArray(data[key])) {
+                    data[key].push(value);
+                } else {
+                    data[key] = [data[key], value];
+                }
+            } else {
+                data[key] = value;
             }
-        });
+        }
+        
+        // Preparar template para EmailJS
+        const templateParams = {
+            to_email: 'suellensilva.empresa@gmail.com',
+            from_name: data.seu_nome || 'Cliente',
+            from_email: data.seu_email || 'não informado',
+            telefone: data.seu_telefone || 'não informado',
+            nome_empresa: data.nome_completo || 'não informado',
+            historia: data.historia || 'não informado',
+            tres_palavras: data.tres_palavras || 'não informado',
+            observacoes: data.observacoes_finais || 'não informado',
+            // Adicionar todos os outros campos
+            ...data
+        };
+        
+        // Enviar via EmailJS
+        const response = await sendEmailViaEmailJS(data);
         
         hideLoading();
         
-        if (response.ok) {
+        if (response.status === 200) {
             showSuccess();
             // Limpar localStorage
             localStorage.removeItem('briefing_cleisson_viagem');
             // Reset form
             form.reset();
         } else {
-            throw new Error('Erro ao enviar formulário');
+            throw new Error('Erro ao enviar e-mail');
         }
     } catch (error) {
         hideLoading();
-        showError(error.message);
+        showError('Erro ao enviar briefing: ' + error.message);
     }
 }
 
