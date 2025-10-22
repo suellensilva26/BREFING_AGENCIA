@@ -48,7 +48,7 @@
                     
                     <div class="form-group">
                         <label for="nome_completo">📝 Nome completo da empresa:</label>
-                        <input type="text" id="nome_completo" name="nome_completo" required>
+                        <input type="text" id="nome_completo" name="nome_completo">
                     </div>
 
                     <div class="form-group">
@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <label for="historia">📝 Como e quando a empresa nasceu? (Conte com suas palavras, seja autêntico)</label>
                         <p class="example">Exemplo: "Comecei fazendo viagens particulares de carro para Aparecida do Norte em 2018. Com o tempo, amigos e conhecidos começaram a pedir para ir junto, e em 2020 aluguei o primeiro ônibus..."</p>
-                        <textarea id="historia" name="historia" rows="5" required></textarea>
+                        <textarea id="historia" name="historia" rows="5"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -190,7 +190,7 @@
                     <div class="form-group">
                         <label for="tres_palavras">📝 Descreva em 3 palavras como você quer que as pessoas SINTAM quando veem sua marca:</label>
                         <p class="example">Exemplos: Confiança, Alegria, Paz, Profissionalismo, Acolhimento, Segurança, Espiritualidade, Diversão</p>
-                        <input type="text" id="tres_palavras" name="tres_palavras" placeholder="Palavra 1, Palavra 2, Palavra 3" required>
+                        <input type="text" id="tres_palavras" name="tres_palavras" placeholder="Palavra 1, Palavra 2, Palavra 3">
                     </div>
                 </div>
 
@@ -856,7 +856,7 @@
                 <p>Confira se você:</p>
                 
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="checklist" value="Preencheu seções" required> Preencheu todas as seções principais</label>
+                    <label><input type="checkbox" name="checklist" value="Preencheu seções"> Preencheu todas as seções principais</label>
                     <label><input type="checkbox" name="checklist" value="Enviou fotos"> Enviou/organizou fotos e vídeos</label>
                     <label><input type="checkbox" name="checklist" value="Indicou concorrentes"> Indicou concorrentes e inspirações</label>
                     <label><input type="checkbox" name="checklist" value="Definiu cores"> Definiu cores e estilo visual preferidos</label>
@@ -871,18 +871,18 @@
                 <h2>📞 SUAS INFORMAÇÕES DE CONTATO</h2>
                 
                 <div class="form-group">
-                    <label for="seu_nome">Seu nome completo: *</label>
-                    <input type="text" id="seu_nome" name="seu_nome" required>
+                    <label for="seu_nome">Seu nome completo:</label>
+                    <input type="text" id="seu_nome" name="seu_nome">
                 </div>
 
                 <div class="form-group">
-                    <label for="seu_email">Seu e-mail: *</label>
-                    <input type="email" id="seu_email" name="seu_email" required>
+                    <label for="seu_email">Seu e-mail:</label>
+                    <input type="email" id="seu_email" name="seu_email">
                 </div>
 
                 <div class="form-group">
-                    <label for="seu_telefone">Seu WhatsApp: *</label>
-                    <input type="tel" id="seu_telefone" name="seu_telefone" placeholder="(00) 00000-0000" required>
+                    <label for="seu_telefone">Seu WhatsApp:</label>
+                    <input type="tel" id="seu_telefone" name="seu_telefone" placeholder="(00) 00000-0000">
                 </div>
 
                 <div class="form-group">
@@ -891,80 +891,15 @@
                 </div>
             </section>
 
-            <!-- SEÇÃO DE PAGAMENTO -->
-            <section class="form-section payment-section">
-                <h2>💳 PAGAMENTO E FINALIZAÇÃO</h2>
-                
-                <div class="subsection">
-                    <h3>💰 VALOR DO SERVIÇO</h3>
-                    <p>O briefing completo e criação da identidade visual tem o valor de:</p>
-                    
-                    <div class="price-display">
-                        <div class="price-amount">R$ 297,00</div>
-                        <div class="price-description">Briefing + Identidade Visual + Estratégia</div>
-                        <div class="price-benefits">
-                            ✅ Formulário completo de briefing<br>
-                            ✅ Análise estratégica detalhada<br>
-                            ✅ Criação de identidade visual<br>
-                            ✅ Logo profissional<br>
-                            ✅ Paleta de cores<br>
-                            ✅ Manual de marca<br>
-                            ✅ Estratégia de conteúdo<br>
-                            ✅ Suporte por 30 dias
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="subsection">
-                    <h3>🔒 PAGAMENTO SEGURO</h3>
-                    <p>Pagamento 100% seguro via Mercado Pago. Aceitamos:</p>
-                    
-                    <div class="payment-methods">
-                        <div class="payment-method">💳 Cartão de Crédito</div>
-                        <div class="payment-method">🏦 PIX</div>
-                        <div class="payment-method">💰 Boleto Bancário</div>
-                        <div class="payment-method">💳 Débito Online</div>
-                    </div>
-                </div>
-                
-                <div class="subsection">
-                    <h3>📋 PROCESSO</h3>
-                    <div class="process-steps">
-                        <div class="process-step">
-                            <div class="step-number">1</div>
-                            <div class="step-text">Preencha o briefing completo</div>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">2</div>
-                            <div class="step-text">Efetue o pagamento seguro</div>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">3</div>
-                            <div class="step-text">Receba sua identidade visual</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- BOTÕES DE AÇÃO -->
+            <!-- BOTÃO DE ENVIO -->
             <div class="submit-section">
-                <div class="action-buttons">
-                    <button type="button" class="payment-button" onclick="startPayment(297)">
-                        💳 PAGAR COM MERCADO PAGO - R$ 297,00
-                    </button>
-                    
-                    <div class="or-divider">
-                        <span>OU</span>
-                    </div>
-                    
-                    <button type="submit" class="submit-button">
-                        📤 ENVIAR BRIEFING GRATUITO (SEM PAGAMENTO)
-                    </button>
-                </div>
+                <button type="submit" class="submit-button">
+                    📤 ENVIAR BRIEFING
+                </button>
                 
                 <p class="submit-note">
-                    <strong>Opção 1:</strong> Pague R$ 297 e receba briefing + identidade visual completa<br>
-                    <strong>Opção 2:</strong> Envie apenas o briefing (sem criação de identidade)
+                    <strong>Briefing 100% gratuito!</strong> Preencha o que conseguir e envie. Quanto mais informações, melhor será o resultado.
                 </p>
             </div>
         </form>
@@ -975,32 +910,27 @@
             <div class="steps-flow">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <p>Você preenche e envia este briefing completo</p>
+                    <p>Você preenche e envia este briefing</p>
                 </div>
                 <div class="step-arrow">➜</div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <p>Eu analiso todo o material (48h)</p>
+                    <p>Analisamos todo o material (48h)</p>
                 </div>
                 <div class="step-arrow">➜</div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <p>Agendo reunião para esclarecer dúvidas (30min)</p>
+                    <p>Entramos em contato para conversar sobre seu projeto</p>
                 </div>
                 <div class="step-arrow">➜</div>
                 <div class="step">
                     <div class="step-number">4</div>
-                    <p>Inicio criação da identidade visual (3-5 dias)</p>
+                    <p>Apresentamos propostas personalizadas</p>
                 </div>
                 <div class="step-arrow">➜</div>
                 <div class="step">
                     <div class="step-number">5</div>
-                    <p>Apresento opções para sua aprovação</p>
-                </div>
-                <div class="step-arrow">➜</div>
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <p>Finalizamos e partimos para produção de conteúdo!</p>
+                    <p>Iniciamos o trabalho juntos!</p>
                 </div>
             </div>
         </section>

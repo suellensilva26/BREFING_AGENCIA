@@ -21,11 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
     animateOnScroll();
 });
 
-// Validação em tempo real
+// Validação em tempo real (opcional)
 function addRealTimeValidation() {
-    const requiredFields = document.querySelectorAll('[required]');
+    // Validação suave para campos de email e telefone
+    const emailFields = document.querySelectorAll('input[type="email"]');
+    const telFields = document.querySelectorAll('input[type="tel"]');
     
-    requiredFields.forEach(field => {
+    [...emailFields, ...telFields].forEach(field => {
         field.addEventListener('blur', function() {
             validateField(this);
         });
@@ -41,12 +43,13 @@ function addRealTimeValidation() {
 function validateField(field) {
     const value = field.value.trim();
     
-    if (field.hasAttribute('required') && !value) {
-        showFieldError(field, 'Este campo é obrigatório');
-        return false;
+    // Só valida se o campo tiver valor (não é obrigatório)
+    if (!value) {
+        clearFieldError(field);
+        return true;
     }
     
-    if (field.type === 'email' && value) {
+    if (field.type === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
             showFieldError(field, 'Por favor, insira um e-mail válido');
@@ -54,7 +57,7 @@ function validateField(field) {
         }
     }
     
-    if (field.type === 'tel' && value) {
+    if (field.type === 'tel') {
         const phoneRegex = /^[\d\s\(\)\-\+]+$/;
         if (!phoneRegex.test(value)) {
             showFieldError(field, 'Por favor, insira um telefone válido');
@@ -62,7 +65,7 @@ function validateField(field) {
         }
     }
     
-    if (field.type === 'url' && value) {
+    if (field.type === 'url') {
         try {
             new URL(value);
         } catch {
@@ -292,33 +295,177 @@ function debounce(func, wait) {
 async function handleSubmit(e) {
     e.preventDefault();
     
-    // Validar todos os campos obrigatórios
-    const requiredFields = document.querySelectorAll('[required]');
-    let isValid = true;
+    // Verificar se há campos vazios importantes
+    const emptyFields = checkEmptyFields();
     
-    requiredFields.forEach(field => {
-        if (!validateField(field)) {
-            isValid = false;
-        }
-    });
-    
-    if (!isValid) {
-        alert('⚠️ Por favor, preencha todos os campos obrigatórios corretamente.');
-        // Scroll para o primeiro erro
-        const firstError = document.querySelector('.error');
-        if (firstError) {
-            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+    if (emptyFields.length > 0) {
+        showSmartValidation(emptyFields);
         return;
     }
     
+    // Se chegou até aqui, pode enviar
+    await submitForm(e.target);
+}
+
+// Verificar campos vazios importantes
+function checkEmptyFields() {
+    const importantFields = [
+        { name: 'nome_completo', label: 'Nome completo da empresa' },
+        { name: 'seu_nome', label: 'Seu nome completo' },
+        { name: 'seu_email', label: 'Seu e-mail' },
+        { name: 'seu_telefone', label: 'Seu WhatsApp' }
+    ];
+    
+    const emptyFields = [];
+    
+    importantFields.forEach(field => {
+        const element = document.querySelector(`[name="${field.name}"]`);
+        if (element && !element.value.trim()) {
+            emptyFields.push({
+                name: field.name,
+                label: field.label,
+                element: element
+            });
+        }
+    });
+    
+    return emptyFields;
+}
+
+// Mostrar validação inteligente
+function showSmartValidation(emptyFields) {
+    const modal = document.createElement('div');
+    modal.id = 'smart-validation-modal';
+    modal.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        ">
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 16px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            ">
+                <div style="
+                    font-size: 3em;
+                    margin-bottom: 20px;
+                ">⚠️</div>
+                
+                <h3 style="
+                    color: #000;
+                    margin-bottom: 15px;
+                    font-size: 1.3em;
+                ">Alguns campos importantes estão vazios</h3>
+                
+                <p style="
+                    color: #666;
+                    margin-bottom: 20px;
+                    line-height: 1.5;
+                ">Você não respondeu:</p>
+                
+                <ul style="
+                    text-align: left;
+                    color: #333;
+                    margin-bottom: 25px;
+                    padding-left: 20px;
+                ">
+                    ${emptyFields.map(field => `<li>• ${field.label}</li>`).join('')}
+                </ul>
+                
+                <p style="
+                    color: #666;
+                    margin-bottom: 25px;
+                    font-size: 0.9em;
+                ">Quanto mais informações você fornecer, melhor será o resultado!</p>
+                
+                <div style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                ">
+                    <button id="fill-now-btn" style="
+                        background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+                        color: #000;
+                        border: 3px solid #000;
+                        padding: 15px 30px;
+                        font-size: 1.1em;
+                        font-weight: 700;
+                        border-radius: 12px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">📝 RESPONDER AGORA</button>
+                    
+                    <button id="send-anyway-btn" style="
+                        background: #f0f0f0;
+                        color: #666;
+                        border: 2px solid #ddd;
+                        padding: 12px 30px;
+                        font-size: 1em;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">📤 ENVIAR MESMO ASSIM</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Event listeners
+    document.getElementById('fill-now-btn').addEventListener('click', () => {
+        modal.remove();
+        scrollToFirstEmptyField(emptyFields[0]);
+    });
+    
+    document.getElementById('send-anyway-btn').addEventListener('click', () => {
+        modal.remove();
+        submitForm(document.getElementById('briefingForm'));
+    });
+}
+
+// Scroll para o primeiro campo vazio
+function scrollToFirstEmptyField(emptyField) {
+    if (emptyField && emptyField.element) {
+        emptyField.element.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+        });
+        
+        // Destacar o campo
+        emptyField.element.style.borderColor = '#FFD700';
+        emptyField.element.style.boxShadow = '0 0 0 3px rgba(255, 215, 0, 0.3)';
+        emptyField.element.focus();
+        
+        // Remover destaque após 3 segundos
+        setTimeout(() => {
+            emptyField.element.style.borderColor = '';
+            emptyField.element.style.boxShadow = '';
+        }, 3000);
+    }
+}
+
+// Enviar formulário
+async function submitForm(form) {
     // Mostrar loading
     showLoading();
     
     try {
         // Enviar formulário
-        const formData = new FormData(e.target);
-        const response = await fetch(e.target.action, {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
             method: 'POST',
             body: formData,
             headers: {
@@ -333,7 +480,7 @@ async function handleSubmit(e) {
             // Limpar localStorage
             localStorage.removeItem('briefing_cleisson_viagem');
             // Reset form
-            e.target.reset();
+            form.reset();
         } else {
             throw new Error('Erro ao enviar formulário');
         }
@@ -372,19 +519,21 @@ function showSuccess() {
     const successDiv = document.createElement('div');
     successDiv.className = 'success-message active';
     successDiv.innerHTML = `
-        <div class="success-icon">✅</div>
+        <div class="success-icon">🎉</div>
         <h3>Briefing Enviado com Sucesso!</h3>
-        <p>Obrigado por compartilhar suas informações. Você receberá uma confirmação por e-mail em breve.</p>
-        <p style="margin-top: 20px;">Entraremos em contato em até 48 horas.</p>
+        <p>Obrigado por compartilhar suas informações! Seu briefing foi recebido e será analisado.</p>
+        <p style="margin-top: 20px; font-weight: 600; color: #FFD700;">Entraremos em contato em até 48 horas para conversar sobre seu projeto!</p>
+        <p style="margin-top: 15px; font-size: 0.9em; color: #666;">Lembre-se: quanto mais informações você forneceu, melhor será o resultado final.</p>
         <button onclick="this.parentElement.remove()" style="
             margin-top: 20px;
-            padding: 10px 30px;
-            background: #10b981;
-            color: white;
-            border: none;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+            color: #000;
+            border: 2px solid #000;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
+            font-weight: 600;
         ">Fechar</button>
     `;
     document.body.appendChild(successDiv);
