@@ -26,30 +26,118 @@ async function sendEmailViaEmailJS(formData) {
             throw new Error('EmailJS não foi inicializado');
         }
         
-        // Preparar dados básicos para o template (usando campos padrão do template "Contact Us")
+        // Preparar dados completos do briefing
         const templateParams = {
             name: formData.seu_nome || 'Cliente',
             email: formData.seu_email || 'não informado',
-            message: `NOVO BRIEFING - CLEISSON VIAGEM
-            
-DADOS DO CLIENTE:
+            message: `🎯 NOVO BRIEFING COMPLETO - CLEISSON VIAGEM
+
+📞 DADOS DO CLIENTE:
 Nome: ${formData.seu_nome || 'não informado'}
 E-mail: ${formData.seu_email || 'não informado'}
 Telefone: ${formData.seu_telefone || 'não informado'}
 
-DADOS DA EMPRESA:
-Nome da empresa: ${formData.nome_completo || 'não informado'}
-História: ${formData.historia || 'não informado'}
-3 palavras: ${formData.tres_palavras || 'não informado'}
+📋 SEÇÃO 1: INFORMAÇÕES BÁSICAS DA EMPRESA
+Nome completo da empresa: ${formData.nome_completo || 'não informado'}
+Redes sociais preferidas: ${Array.isArray(formData.redes_sociais) ? formData.redes_sociais.join(', ') : (formData.redes_sociais || 'não informado')}
+Nome fantasia: ${formData.nome_fantasia || 'não informado'}
+História da empresa: ${formData.historia || 'não informado'}
+Propósito da empresa: ${Array.isArray(formData.proposito) ? formData.proposito.join(', ') : (formData.proposito || 'não informado')}
+Momento marcante: ${formData.momento_marcante || 'não informado'}
 
-OBSERVAÇÕES:
+🎨 SEÇÃO 2: IDENTIDADE VISUAL
+Possui logo: ${formData.possui_logo || 'não informado'}
+O que gosta no logo: ${formData.logo_gosta || 'não informado'}
+O que mudaria no logo: ${formData.logo_mudaria || 'não informado'}
+Link do logo: ${formData.logo_upload || 'não informado'}
+Cores primárias: ${Array.isArray(formData.cores_primarias) ? formData.cores_primarias.join(', ') : (formData.cores_primarias || 'não informado')}
+Combinações de cores: ${Array.isArray(formData.combinacoes_cores) ? formData.combinacoes_cores.join(', ') : (formData.combinacoes_cores || 'não informado')}
+Cor a evitar: ${formData.cor_evitar || 'não informado'}
+Estilo visual: ${formData.estilo_visual || 'não informado'}
+3 palavras para a marca: ${formData.tres_palavras || 'não informado'}
+Tipo de logo preferido: ${formData.tipo_logo || 'não informado'}
+Elementos do logo: ${Array.isArray(formData.elementos_logo) ? formData.elementos_logo.join(', ') : (formData.elementos_logo || 'não informado')}
+Logo que admira: ${formData.logo_admira || 'não informado'}
+
+📸 SEÇÃO 3: BANCO DE CONTEÚDO
+Fotos do transporte: ${Array.isArray(formData.fotos_transporte) ? formData.fotos_transporte.join(', ') : (formData.fotos_transporte || 'não informado')}
+Fotos dos destinos: ${Array.isArray(formData.fotos_destinos) ? formData.fotos_destinos.join(', ') : (formData.fotos_destinos || 'não informado')}
+Fotos dos clientes: ${Array.isArray(formData.fotos_clientes) ? formData.fotos_clientes.join(', ') : (formData.fotos_clientes || 'não informado')}
+Fotos dos bastidores: ${Array.isArray(formData.fotos_bastidores) ? formData.fotos_bastidores.join(', ') : (formData.fotos_bastidores || 'não informado')}
+Link das fotos: ${formData.link_fotos || 'não informado'}
+Possui vídeos: ${formData.possui_videos || 'não informado'}
+Tipos de vídeos: ${Array.isArray(formData.tipos_videos) ? formData.tipos_videos.join(', ') : (formData.tipos_videos || 'não informado')}
+Link dos vídeos: ${formData.link_videos || 'não informado'}
+Depoimentos: ${Array.isArray(formData.depoimentos_tipo) ? formData.depoimentos_tipo.join(', ') : (formData.depoimentos_tipo || 'não informado')}
+Link dos depoimentos: ${formData.link_depoimentos || 'não informado'}
+Cliente embaixador: ${formData.cliente_embaixador || 'não informado'}
+Contato do embaixador: ${formData.contato_embaixador || 'não informado'}
+
+🔍 SEÇÃO 4: CONCORRÊNCIA
+Concorrente 1: ${formData.concorrente1_nome || 'não informado'} - ${formData.concorrente1_instagram || 'não informado'}
+O que fazem bem: ${formData.concorrente1_faz_bem || 'não informado'}
+O que você faz melhor: ${formData.concorrente1_voce_melhor || 'não informado'}
+Concorrente 2: ${formData.concorrente2_nome || 'não informado'} - ${formData.concorrente2_instagram || 'não informado'}
+O que fazem bem: ${formData.concorrente2_faz_bem || 'não informado'}
+O que você faz melhor: ${formData.concorrente2_voce_melhor || 'não informado'}
+Concorrente 3: ${formData.concorrente3_nome || 'não informado'} - ${formData.concorrente3_instagram || 'não informado'}
+O que fazem bem: ${formData.concorrente3_faz_bem || 'não informado'}
+O que você faz melhor: ${formData.concorrente3_voce_melhor || 'não informado'}
+
+Inspiração 1: ${formData.inspiracao1_perfil || 'não informado'} - ${formData.inspiracao1_motivo || 'não informado'}
+Inspiração 2: ${formData.inspiracao2_perfil || 'não informado'} - ${formData.inspiracao2_motivo || 'não informado'}
+Inspiração 3: ${formData.inspiracao3_perfil || 'não informado'} - ${formData.inspiracao3_motivo || 'não informado'}
+Inspiração 4: ${formData.inspiracao4_perfil || 'não informado'} - ${formData.inspiracao4_motivo || 'não informado'}
+Inspiração 5: ${formData.inspiracao5_perfil || 'não informado'} - ${formData.inspiracao5_motivo || 'não informado'}
+
+Marketing que deu certo: ${formData.marketing_sucesso || 'não informado'}
+Elogios dos clientes: ${formData.elogios_clientes || 'não informado'}
+Diferencial real: ${formData.diferencial_real || 'não informado'}
+
+💬 SEÇÃO 5: TOM DE VOZ
+Personalidade da marca: ${Array.isArray(formData.personalidade) ? formData.personalidade.join(', ') : (formData.personalidade || 'não informado')}
+Tom de comunicação: ${formData.tom_comunicacao || 'não informado'}
+Uso de emojis: ${formData.uso_emojis || 'não informado'}
+Mensagem 1: ${formData.mensagem1 || 'não informado'}
+Mensagem 2: ${formData.mensagem2 || 'não informado'}
+Mensagem 3: ${formData.mensagem3 || 'não informado'}
+Mensagem 4: ${formData.mensagem4 || 'não informado'}
+
+📊 SEÇÃO 6: OBJETIVOS
+Meta principal: ${formData.meta_principal || 'não informado'}
+Resultado esperado: ${formData.resultado_feliz || 'não informado'}
+
+Público 1 - Idade: ${formData.publico1_idade || 'não informado'}, Gênero: ${formData.publico1_genero || 'não informado'}, Cidade: ${formData.publico1_cidade || 'não informado'}, Profissão: ${formData.publico1_profissao || 'não informado'}, Família: ${formData.publico1_familia || 'não informado'}, Motivação: ${formData.publico1_motivacao || 'não informado'}
+Público 2 - Idade: ${formData.publico2_idade || 'não informado'}, Gênero: ${formData.publico2_genero || 'não informado'}, Cidade: ${formData.publico2_cidade || 'não informado'}, Profissão: ${formData.publico2_profissao || 'não informado'}, Família: ${formData.publico2_familia || 'não informado'}, Motivação: ${formData.publico2_motivacao || 'não informado'}
+
+🎁 SEÇÃO 7: EXTRAS
+Horário de funcionamento: ${formData.horario_funcionamento || 'não informado'}
+Formas de pagamento: ${Array.isArray(formData.pagamento) ? formData.pagamento.join(', ') : (formData.pagamento || 'não informado')}
+Política de cancelamento: ${formData.politica_cancelamento || 'não informado'}
+Idade para viagem: ${formData.idade_viagem || 'não informado'}
+Permite animais: ${formData.permite_animais || 'não informado'}
+Diferenciais únicos: ${formData.diferenciais || 'não informado'}
+Parcerias: ${formData.parcerias || 'não informado'}
+Certificações: ${Array.isArray(formData.certificacoes) ? formData.certificacoes.join(', ') : (formData.certificacoes || 'não informado')}
+
+📅 SEÇÃO 8: PLANEJAMENTO
+Excursão 1: ${formData.excursao1_data || 'não informado'} - ${formData.excursao1_destino || 'não informado'} (${formData.excursao1_vagas || 'não informado'} vagas)
+Excursão 2: ${formData.excursao2_data || 'não informado'} - ${formData.excursao2_destino || 'não informado'} (${formData.excursao2_vagas || 'não informado'} vagas)
+Excursão 3: ${formData.excursao3_data || 'não informado'} - ${formData.excursao3_destino || 'não informado'} (${formData.excursao3_vagas || 'não informado'} vagas)
+Frequência das viagens: ${formData.frequencia_viagens || 'não informado'}
+Alta temporada: ${Array.isArray(formData.alta_temporada) ? formData.alta_temporada.join(', ') : (formData.alta_temporada || 'não informado')}
+Datas importantes: ${Array.isArray(formData.datas_importantes) ? formData.datas_importantes.join(', ') : (formData.datas_importantes || 'não informado')}
+
+📝 OBSERVAÇÕES FINAIS:
 ${formData.observacoes_finais || 'não informado'}
 
-Data do envio: ${new Date().toLocaleString('pt-BR')}
-Site: ${window.location.href}
+📊 CHECKLIST:
+${Array.isArray(formData.checklist) ? formData.checklist.join(', ') : (formData.checklist || 'não informado')}
 
 ---
-Enviado automaticamente pelo site de briefing.`
+📧 Data do envio: ${new Date().toLocaleString('pt-BR')}
+🌐 Site: ${window.location.href}
+📱 Enviado automaticamente pelo site de briefing.`
         };
         
         console.log('Enviando e-mail com parâmetros:', templateParams);
