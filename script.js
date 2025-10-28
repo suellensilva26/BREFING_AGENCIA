@@ -389,7 +389,7 @@ async function handleSubmit(e) {
         return;
     }
     
-    // Se chegou até aqui, pode enviar
+    // Se chegou até aqui, pode enviar via FormSubmit
     await submitForm(e.target);
 }
 
@@ -549,12 +549,12 @@ async function submitForm(form) {
     showLoading();
     
     try {
-        // FormSubmit envia automaticamente - só precisamos submeter o form
-        form.submit();
+        // FormSubmit funciona com envio direto do formulário
+        // Remover o preventDefault temporariamente para permitir o envio
+        form.removeEventListener('submit', handleSubmit);
         
-        // Se chegou até aqui, o envio foi iniciado
-        hideLoading();
-        showSuccess();
+        // Submeter o formulário diretamente para FormSubmit
+        form.submit();
         
         // Limpar localStorage
         localStorage.removeItem('briefing_cleisson_viagem');
