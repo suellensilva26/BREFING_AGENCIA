@@ -543,56 +543,22 @@ function scrollToFirstEmptyField(emptyField) {
     }
 }
 
-// Enviar formulário via EmailJS
+// Enviar formulário via FormSubmit
 async function submitForm(form) {
     // Mostrar loading
     showLoading();
     
     try {
-        // Coletar dados do formulário
-        const formData = new FormData(form);
-        const data = {};
+        // FormSubmit envia automaticamente - só precisamos submeter o form
+        form.submit();
         
-        for (let [key, value] of formData.entries()) {
-            if (data[key]) {
-                if (Array.isArray(data[key])) {
-                    data[key].push(value);
-                } else {
-                    data[key] = [data[key], value];
-                }
-            } else {
-                data[key] = value;
-            }
-        }
-        
-        // Preparar template para EmailJS
-        const templateParams = {
-            to_email: 'suellensilva.empresa@gmail.com',
-            from_name: data.seu_nome || 'Cliente',
-            from_email: data.seu_email || 'não informado',
-            telefone: data.seu_telefone || 'não informado',
-            nome_empresa: data.nome_completo || 'não informado',
-            historia: data.historia || 'não informado',
-            tres_palavras: data.tres_palavras || 'não informado',
-            observacoes: data.observacoes_finais || 'não informado',
-            // Adicionar todos os outros campos
-            ...data
-        };
-        
-        // Enviar via EmailJS
-        const response = await sendEmailViaEmailJS(data);
-        
+        // Se chegou até aqui, o envio foi iniciado
         hideLoading();
+        showSuccess();
         
-        if (response.status === 200) {
-            showSuccess();
-            // Limpar localStorage
-            localStorage.removeItem('briefing_cleisson_viagem');
-            // Reset form
-            form.reset();
-        } else {
-            throw new Error('Erro ao enviar e-mail');
-        }
+        // Limpar localStorage
+        localStorage.removeItem('briefing_cleisson_viagem');
+        
     } catch (error) {
         hideLoading();
         showError('Erro ao enviar briefing: ' + error.message);

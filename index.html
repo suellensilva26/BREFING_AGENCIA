@@ -10,8 +10,6 @@
     <title>BRIEFING INICIAL - Cleisson Viagem</title>
     <link rel="stylesheet" href="estilo.css?v=3.0">
     
-    <!-- EMAILJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -36,7 +34,13 @@
             </div>
         </div>
 
-        <form id="briefingForm">
+        <form id="briefingForm" action="https://formsubmit.co/suellensilva.empresa@gmail.com" method="POST">
+            <!-- CONFIGURAÇÕES FORMSUBMIT -->
+            <input type="hidden" name="_subject" value="🎯 Novo Briefing - Cleisson Viagem">
+            <input type="hidden" name="_next" value="https://brefing-agencia.vercel.app/sucesso.html">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_autoresponse" value="Obrigado pelo seu briefing! Entraremos em contato em até 48 horas.">
             
             <!-- SEÇÃO 1: INFORMAÇÕES BÁSICAS -->
             <section class="form-section">
