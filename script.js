@@ -310,7 +310,16 @@ async function handleSubmit(e) {
     }
     
     // Se chegou até aqui, pode enviar via Formspree
-    await submitForm(e.target);
+    submitDirectly(e.target);
+}
+
+// Função para envio direto (sem validação)
+function submitDirectly(form) {
+    // Remover o event listener temporariamente
+    form.removeEventListener('submit', handleSubmit);
+    
+    // Submeter diretamente para Formspree
+    form.submit();
 }
 
 // Verificar campos vazios importantes
@@ -438,7 +447,7 @@ function showSmartValidation(emptyFields) {
     
     document.getElementById('send-anyway-btn').addEventListener('click', () => {
         modal.remove();
-        submitForm(document.getElementById('briefingForm'));
+        submitDirectly(document.getElementById('briefingForm'));
     });
 }
 
