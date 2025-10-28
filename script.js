@@ -327,7 +327,7 @@ function checkEmptyFields() {
     const importantFields = [
         { name: 'nome_completo', label: 'Nome completo da empresa' },
         { name: 'seu_nome', label: 'Seu nome completo' },
-        { name: 'seu_email', label: 'Seu e-mail' },
+        { name: 'email', label: 'Seu e-mail' },
         { name: 'seu_telefone', label: 'Seu WhatsApp' }
     ];
     
