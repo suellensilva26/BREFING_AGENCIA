@@ -1,88 +1,8 @@
-// CONFIGURAÇÃO EMAILJS
-const EMAILJS_CONFIG = {
-    publicKey: 's4sU_9n94n1m2coPH',
-    serviceId: 'service_f8qh341',
-    templateId: 'lo75si4',
-    toEmail: 'suellensilva.empresa@gmail.com'
-};
+// Configuração removida - agora usando Formspree
 
-// INICIALIZAR EMAILJS
-function initEmailJS() {
-    if (typeof emailjs !== 'undefined') {
-        emailjs.init(EMAILJS_CONFIG.publicKey);
-        console.log('✅ EmailJS inicializado com sucesso!');
-        return true;
-    } else {
-        console.error('❌ EmailJS não foi carregado');
-        return false;
-    }
-}
+// Função removida - não mais necessária com Formspree
 
-// FUNÇÃO PARA ENVIAR E-MAIL VIA EMAILJS
-async function sendEmailViaEmailJS(formData) {
-    try {
-        // Verificar se EmailJS está inicializado
-        if (!initEmailJS()) {
-            throw new Error('EmailJS não foi inicializado');
-        }
-        
-        // Preparar dados básicos para o template (usando apenas campos padrão)
-        const templateParams = {
-            name: formData.seu_nome || 'Cliente',
-            email: formData.seu_email || 'não informado',
-            message: `NOVO BRIEFING - CLEISSON VIAGEM
-
-DADOS DO CLIENTE:
-Nome: ${formData.seu_nome || 'não informado'}
-E-mail: ${formData.seu_email || 'não informado'}
-Telefone: ${formData.seu_telefone || 'não informado'}
-
-DADOS DA EMPRESA:
-Nome da empresa: ${formData.nome_completo || 'não informado'}
-História: ${formData.historia || 'não informado'}
-3 palavras: ${formData.tres_palavras || 'não informado'}
-
-OBSERVAÇÕES:
-${formData.observacoes_finais || 'não informado'}
-
-Data do envio: ${new Date().toLocaleString('pt-BR')}
-Site: ${window.location.href}
-
----
-Enviado automaticamente pelo site de briefing.`
-        };
-        
-        console.log('Enviando e-mail com parâmetros:', templateParams);
-        
-        // Enviar e-mail
-        const response = await emailjs.send(
-            EMAILJS_CONFIG.serviceId,
-            EMAILJS_CONFIG.templateId,
-            templateParams
-        );
-        
-        console.log('E-mail enviado com sucesso:', response);
-        return response;
-        
-    } catch (error) {
-        console.error('Erro detalhado ao enviar e-mail:', error);
-        
-        // Tratar diferentes tipos de erro
-        let errorMessage = 'Erro desconhecido';
-        
-        if (error.text) {
-            errorMessage = `Erro do EmailJS: ${error.text}`;
-        } else if (error.message) {
-            errorMessage = `Erro: ${error.message}`;
-        } else if (typeof error === 'string') {
-            errorMessage = error;
-        } else {
-            errorMessage = `Erro no EmailJS: ${JSON.stringify(error)}`;
-        }
-        
-        throw new Error(errorMessage);
-    }
-}
+// Função removida - Formspree gerencia o envio automaticamente
 
 // Configurações e Inicialização
 document.addEventListener('DOMContentLoaded', function() {
@@ -389,7 +309,7 @@ async function handleSubmit(e) {
         return;
     }
     
-    // Se chegou até aqui, pode enviar via FormSubmit
+    // Se chegou até aqui, pode enviar via Formspree
     await submitForm(e.target);
 }
 
@@ -543,17 +463,17 @@ function scrollToFirstEmptyField(emptyField) {
     }
 }
 
-// Enviar formulário via FormSubmit
+// Enviar formulário via Formspree
 async function submitForm(form) {
     // Mostrar loading
     showLoading();
     
     try {
-        // FormSubmit funciona com envio direto do formulário
+        // Formspree funciona com envio direto do formulário
         // Remover o preventDefault temporariamente para permitir o envio
         form.removeEventListener('submit', handleSubmit);
         
-        // Submeter o formulário diretamente para FormSubmit
+        // Submeter o formulário diretamente para Formspree
         form.submit();
         
         // Limpar localStorage
